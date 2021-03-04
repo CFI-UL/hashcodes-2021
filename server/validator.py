@@ -98,11 +98,11 @@ class Validator:
             weight = sum(map(lambda product: self.weights[product], d.load))
 
             if weight > self.maxweight:
-                raise Exception(f'Drone {self.drones.index(d)} is unable to load quantity {qty} of product {pdt} from warehouse {whs} at time {t}. Drone is overweight')
+                raise Exception(f'Drone {self.drones.index(d)} is unable to load quantity {qty} of product {pdt} from warehouse {whs} at time {t}. Drone is overweight.')
         elif instruction[0] == 'U':
             whs, pdt, qty = list(map(int, instruction[1:]))
             if d.load.count(pdt) < qty:
-                raise Exception(f'Drone {self.drones.index(d)} is unable to unload quantity {qty} of product {pdt} into warehouse {whs} at time {t}. Drone does not carry enough of this product')
+                raise Exception(f'Drone {self.drones.index(d)} is unable to unload quantity {qty} of product {pdt} into warehouse {whs} at time {t}. Drone does not carry enough of this product.')
 
             for i in range(qty):
                 d.load.remove(pdt)
@@ -111,9 +111,9 @@ class Validator:
             cli, pdt, qty = list(map(int, instruction[1:]))
             if d.load.count(pdt) < qty:
                 raise Exception(
-                    f'Drone {self.drones.index(d)} is unable to deliver quantity {qty} of product {pdt} to client {cli} at time {t}. Drone does not carry enough of this product')
+                    f'Drone {self.drones.index(d)} is unable to deliver quantity {qty} of product {pdt} to client {cli} at time {t}. Drone does not carry enough of this product.')
 
-            if d.load.count(pdt) < qty:
+            if self.orders[cli].products.count(pdt) < qty:
                 raise Exception(
                     f'Drone {self.drones.index(d)} is unable to deliver quantity {qty} of product {pdt} to client {cli} at time {t}. Client does not want so much of this product.')
 
