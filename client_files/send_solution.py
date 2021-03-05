@@ -2,6 +2,7 @@ import json
 import socket
 
 address = ('localhost', 1337)
+
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect(address)
 print(s.recv(2048).decode())
