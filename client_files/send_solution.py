@@ -4,7 +4,9 @@ import socket
 address = ('asetin-compe.herokuapp.com', 80)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print(f'Connecting to {address}')
 s.connect(address)
+print('Connected!')
 print(s.recv(2048).decode())
 
 token = input('Insert team token: ')
@@ -24,7 +26,7 @@ data = {
 
 print(f'Trying challenge {chall} with token {token}...')
 
-m = json.dumps(data).encode() + b'\n'
+m = json.dumps(data).encode() + b'\r\n'
 s.sendall(m)
 
 out = s.recv(2048).decode()
