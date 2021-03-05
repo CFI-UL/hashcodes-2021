@@ -3,6 +3,7 @@ from handler import Handler
 import socketserver
 import json
 import exceptions
+import os
 
 def dump_teams_as_json(teams):
 	return [teams[team_id].to_dict() for team_id in teams]
@@ -43,7 +44,7 @@ class HashcodeTCPServer(socketserver.TCPServer):
 	def get_team(self, team_id):
 		return self.teams[team_id]
 
-address = ('0.0.0.0', 1337)
+address = ('0.0.0.0', os.environ.get('PORT'))
 s = HashcodeTCPServer(address, Handler)
 
 print(f'Starting server with teams:\n{s.teams}')

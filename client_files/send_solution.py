@@ -1,7 +1,7 @@
 import json
 import socket
 
-address = ('localhost', 1337)
+address = ('asetin-compe.herokuapp.com', 80)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect(address)
