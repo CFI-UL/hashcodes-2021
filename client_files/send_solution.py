@@ -26,4 +26,8 @@ print(f'Trying challenge {chall} with token {token}...')
 
 m = json.dumps(data).encode() + b'\n'
 s.sendall(m)
-print(s.recv(2048).decode())
+
+out = s.recv(2048).decode()
+while out == '':
+	out = s.recv(2048).decode()
+print(out)

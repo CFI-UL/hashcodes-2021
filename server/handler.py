@@ -30,6 +30,9 @@ class Handler (socketserver.StreamRequestHandler):
 		self.wfile.write(b'Successfully connected...\n')
 		m = self.rfile.readline()
 
+		if not m:
+			return
+
 		try:
 			data = json.loads(m)
 		except Exception as e:
