@@ -1,1 +1,1 @@
-web: python ./server/launch_server.py
+web: cd ./server && python ./launch_server.py
