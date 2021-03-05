@@ -45,7 +45,7 @@ class HashcodeTCPServer(socketserver.TCPServer):
 		return self.teams[team_id]
 
 port = int(os.environ.get('PORT'))
-print('Starting server on internal port: ' + port)
+print(f'Starting server on internal port: {port}')
 address = ('0.0.0.0', port)
 s = HashcodeTCPServer(address, Handler)
 
