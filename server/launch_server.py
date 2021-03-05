@@ -43,7 +43,7 @@ class HashcodeTCPServer(socketserver.TCPServer):
 	def get_team(self, team_id):
 		return self.teams[team_id]
 
-address = ('localhost', 1337)
+address = ('0.0.0.0', 1337)
 s = HashcodeTCPServer(address, Handler)
 
 print(f'Starting server with teams:\n{s.teams}')
