@@ -84,7 +84,7 @@ class Validator:
                             d.delay = self.dist(d.coords, self.warehouses[int(d.active[1])].coords) + 1
                 d.delay -= 1
 
-        print(f"Score final: {self.score}")
+        return self.score
 
     def exec(self, d, instruction, t):
         if instruction[0] == 'L':

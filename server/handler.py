@@ -3,8 +3,10 @@ import json
 import teams
 
 from exceptions import TeamAlreadyExistsException
+from validator import Validator
 
 class Handler (socketserver.StreamRequestHandler):
+	maps = [ 'maps/busy_day.in', 'maps/mother_of_all_warehouses.in', 'maps/redundancy.in' ]
 
 	def handle(self):
 		# 2 formats disponible
@@ -41,7 +43,27 @@ class Handler (socketserver.StreamRequestHandler):
 				self.wfile.write(b'Unknown error in registration, please try again.\n')
 				raise
 		elif method == 'challenge':
-			self.identify(data)
+			t = self.identify(data)
+			if t is None: return
+
+			try:
+				challenge = maps[data['chall_id']]
+			except:
+				chall = data['chall_id']
+				self.wfile.write(f'Unknown challenge: {chall}'.encode())
+
+			with open(challenge, 'r') as f:
+				chall_data = f.read().splitlines()
+
+			v = Validator()
+
+			try:
+				score = v.verify(chall_data, data['solution'].splitlines())
+				self.wfile.write(f'Success! Your score is: {score}'.encode())
+				t.score = max(score, t.score)
+			except Exception as e:
+				self.wfile.write(f'{e}\n'.encode())
+
 		else:
 			self.wfile.write(f'Unknown method: {method}\n'.encode())
 
@@ -54,10 +76,10 @@ class Handler (socketserver.StreamRequestHandler):
 			self.wfile.write(mess.encode())
 		except TeamAlreadyExistsException:
 			print('Trying again...')
-			self.register(data)
 
 	def identify(self, identifier):
 		try:
-			self.server.get_team(identifier)
+			return self.server.get_team(identifier)
 		except:
 			self.wfile.write(f'Unknown team identifier: {identifier}'.encode())
+
