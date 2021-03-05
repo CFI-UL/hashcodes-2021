@@ -27,8 +27,9 @@ class Handler (socketserver.StreamRequestHandler):
 		#	solution: "solution"
 		# }
 
-		self.wfile.write(b'Listening...\n')
+		self.wfile.write(b'Successfully connected...\n')
 		m = self.rfile.readline()
+
 		try:
 			data = json.loads(m)
 		except Exception as e:
@@ -43,11 +44,11 @@ class Handler (socketserver.StreamRequestHandler):
 				self.wfile.write(b'Unknown error in registration, please try again.\n')
 				raise
 		elif method == 'challenge':
-			t = self.identify(data)
+			t = self.identify(data['team_id'])
 			if t is None: return
 
 			try:
-				challenge = maps[data['chall_id']]
+				challenge = self.maps[int(data['chall_id'])]
 			except:
 				chall = data['chall_id']
 				self.wfile.write(f'Unknown challenge: {chall}'.encode())
