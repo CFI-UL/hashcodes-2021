@@ -36,6 +36,7 @@ class Handler (socketserver.StreamRequestHandler):
 		try:
 			data = json.loads(m)
 		except Exception as e:
+			print(e)
 			self.wfile.write(f'Could not parse json entry.\n{e}\n'.encode())
 			return
 
