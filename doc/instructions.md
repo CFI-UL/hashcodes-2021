@@ -39,4 +39,46 @@ Pour compléter une livraison, il ne suffit que de livrer les produits requis à
 
 Il est garanti qu'il y aura toujours assez de produits disponibles dans l'ensemble des entrepôts pour remplir chacune des commandes.
 
-Pour finir, il n'est pas nécessaire de remplir chacune des commandes, le but est d'en faire le plus possible.
+Pour finir, il n'est pas nécessaire de remplir chacune des commandes, le but est d'en faire le plus possible. _(Voir le scoring plus loin)_
+
+## Drones
+
+Les drones sont utilisés pour transporter les produits. Ils utilisent toujours le chemin le plus court pour arriver à leur destination et elle se calcule selon une distance euclidienne, donc la distance entre le point _a_ et le point _b_ se calcule avec cette formule: $\sqrt{\mid a_x - b_x \mid^2 + \mid a_y - b_y \mid^2}$
+
+De plus, les drones se déplacent à une vitesse de 1 unité de distance par tour et le temps total d'un vol est arrondi à la hausse. Par exemple, si la formule donne une distance de _5.192_, le temps total nécessaire pour faire le trajet sera de 6 tours.
+
+Plusieurs drones peuvent voler à des altitudes différentes, donc ils peuvent se croiser sur la même cellule sans collision.
+
+Au début de la simulation, tous les drones commencent au premier entrepôt (celui avec l'id **0**).
+
+## Ordres
+
+Les drones peuvent être commandés avec les ordres de base suivant:
+
+- **Load**: Charge une quantité d'un produits dans l'inventaire du drone. Si le drone ne se trouve pas à l'entrepôt spécifié, il s'y rendra préalablement selon la technique énoncée plus haut. L'ordre échouera si l'entrepôt ne contient pas le nombre demandé du produit voulu et si la charge du drone dépasse sa capacité.
+- **Deliver**: Livre une quantité d'un produit à un client. Si le drone ne se trouve pas au client spécifié, il s'y rendra préalablement selon la technique énoncée plus haut. L'ordre échouera si le drone ne possède pas le nombre demandé du produit voulu dans son inventaire.
+
+Les ordres suivants sont facultatifs pour résoudre le challenge, cependant ils peuvent être utiles pour optimiser les livraisons.
+
+- **Unload**: Dépose une quantité d'un produit dans un entrepôt. Si le drone ne se trouve pas à l'entrepôt spécifié, il s'y rendra préalablement selon la technique énoncée plus haut. L'ordre échouera si le drone ne possède pas le nombre demandé du produit voulu dans son inventaire.
+- **Wait**: Attends sans rien faire pendant un nombre de tours spécifié.
+
+## Simulation
+
+La simulation se déroule en un nombre de tours spécifié dans le fichier de challenge. Les drones exécutent ses ordres dans l'ordre qu'ils sont assignés, un après l'autre. La première commande issue à un drone commence au tour 0.
+
+La duré d'un ordre dépends de son type:
+
+- **Load/Deliver/Unload**: Prends un tour de plus que la duré du trajet. Pour reprendre l'exemple plus haut, un trajet de _5.192_ donnera un durée de d'ordre de 7 tours (6 pour le déplacement et 1 pour l'action). Si le drone se trouve déjà à l'endroit, l'ordre ne prends qu'un tour.
+- **Wait**: Le nombre spécifié de tours
+
+Si plusieurs drones font une action au même entrepôt pendant le même tour, les dépôts _(Unload)_ sont traités avant les chargements _(Load)_.
+
+# Fichier d'entrée
+
+Les données d'entrée sont fournies à l'aide d'un fichier texte contenant que des caractères ASCII. Les lignes sont terminée par un _\\n_ (Style UNIX).
+
+Les types de produits, les entrepôts ainsi que les commandes sont numérotés à l'aides d'IDs entiers, on commence à compter à partir de 0 parce qu'on n'est pas des monstres.
+
+## Format du fichier
+
