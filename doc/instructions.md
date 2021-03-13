@@ -131,6 +131,23 @@ Ordre: 0-3 1 - - 4 5 2 - -
 
 Comme on peut voir, même si l'ordre _3_ arrive après l'ordre _0_, ils sont exécutés en même temps puisqu'il s'agit de différents drones, de là l'intérêt d'avoir une commande _wait_, sans elle, il serait impossible de faire attendre un drone après un autre.
 
+Avec les différents symboles suivants:
+
+- _R_: L'ID du drône
+- _E_: L'ID de l'entrepôt
+- _T_: L'ID du type de produit
+- _C_: L'ID de la commande
+- _Q_: La quantité (un entier positif)
+
+On peut décrire les ordres via cette forme (les caractères en gras sont littéraux):
+
+- **Load**: _R_ - **L** - _E_ - _T_ - _Q_ 
+- **Unload**: _R_ - **U** - _E_ - _T_ - _Q_ 
+- **Deliver**: _R_ - **D** - _C_ - _T_ - _Q_
+- **Wait**: _R_ - **W** - _Q_
+
+_Voir la section Ordres pour savoir que font les ordres._
+
 ## Pointage
 
 Chaque commande complétée se verra attribuer un pointage entre 1 et 100, dépendamment du nombre de tours nécessaire à sa complétion. Une commande est considérée complétée dès que chaque produit a été livré.
