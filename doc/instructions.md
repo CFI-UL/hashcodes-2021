@@ -115,27 +115,27 @@ La dernière section spécifie les différentes commandes. Elle est formée de l
 
 
 Voici un exemple du contenu d'un fichier d'entrée ainsi que son interprétation:
-|Fichier| Interprétation |
-|--|--|
-|100 100 3 50 500|100 rangées, 100 colonnes, 3 drones, 50 tours, poids max de 500 par drone|
-3| Il y a 3 types de produits
-100 5 450 | Les poids de chacun des types: 100; 5; 450
-2 | Il y a deux entrepôts
-0 0 | Le premier entrepôt est situé en (0, 0)
-5 1 0 | Il contient 5 items de type 0 et 1 item de type 1
-5 5| Le second entrepôt est situé en (5, 5)
- 0 10 2 | Il contient 10 items de type 1 et 2 items de type 2
- 3 | Il y a 3 commandes
- 1 1 | La première commande doit être livrée en (1, 1)
- 2 | Elle requiert 2 items au total
- 2 0 | Elle requiert un item de type 2 et un item de type 0
- 3 3| La deuxième commande doit être livrée en (3, 3)
- 1| Elle requiert 1 item au total
- 0 | Elle requiert un item de type 0
- 5 6 | La troisième commande doit être livrée en (5, 6)
- 1 |Elle requiert 1 item au total
- 2| Elle requiert un item de type 2
 
+| Fichier          | Interprétation |
+| ---------------- | -------------- |
+| 100 100 3 50 500 | 100 rangées, 100 colonnes, 3 drones, 50 tours, poids max de 500 par drone |
+| 3 | Il y a 3 types de produits |
+| 100 5 450 | Les poids de chacun des types: 100; 5; 450 |
+| 2 | Il y a deux entrepôts |
+| 0 0 | Le premier entrepôt est situé en (0, 0) |
+| 5 1 0 | Il contient 5 items de type 0 et 1 item de type 1 |
+| 5 5 | Le second entrepôt est situé en (5, 5) |
+| 0 10 2 | Il contient 10 items de type 1 et 2 items de type 2 |
+| 3 | Il y a 3 commandes |
+| 1 1 | La première commande doit être livrée en (1, 1) |
+| 2 | Elle requiert 2 items au total |
+| 2 0 | Elle requiert un item de type 2 et un item de type 0 |
+| 3 3 | La deuxième commande doit être livrée en (3, 3) |
+| 1 | Elle requiert 1 item au total |
+| 0 | Elle requiert un item de type 0 |
+| 5 6 | La troisième commande doit être livrée en (5, 6) |
+| 1 | Elle requiert 1 item au total |
+| 2 | Elle requiert un item de type 2 |
 
 # Soumission
 
@@ -149,12 +149,9 @@ Les drones sont identifiés par des entiers consécutifs en commençant par 0, d
 
 Par exemple, si le drone 0 possède les ordres suivants, (où la durée de l'ordre est entre parenthèses): `ordre0(1), ordre1(5), ordre2(3)` et que le drone 1 possède ces ordres là: `ordre3(4), ordre4(1), ordre5(1)` voici le timeline de l'ordonnancement des ordres:
 
-
 |Temps:| 0 |  1| 2| 3| 4| 5| 6| 7| 8|
 |--|--|--|--|--|--|--|--|--|--|
 |Ordre:| 0;3| 1| -| -| 4| 5| 2| -| -|
-
-
 
 Comme on peut voir, même si l'ordre _3_ arrive après l'ordre _0_, ils sont exécutés en même temps puisqu'il s'agit de différents drones, de là l'intérêt d'avoir une commande _wait_, sans elle, il serait impossible de faire attendre un drone après un autre.
 
@@ -176,18 +173,19 @@ On peut décrire les ordres via cette forme (les caractères en gras sont litté
 _Voir la section Ordres pour savoir que font les ordres._
 
 Voici un exemple du contenu d'un fichier de sortie ainsi que son interprétation:
-|Fichier| Interprétation |
-|--|--|
-|9|Il y a 9 commandes au total|
-0 L 0 0 1| Drone 0: **Load** 1 produit de type 0 à partir de l'entrepôt 0
-0 L 0 1 1 | Drone 0: **Load** 1 produit de type 1 à partir de l'entrepôt 0
-0 D 0 0 1 | Drone 0: Vole jusqu'à la commande 0 et **Deliver** 1 produit de type 0
-0 L 1 2 1 | Drone 0: Vole jusqu'à l'entrepôt 1 et **Load** 1 produit de type 2
-0 D 0 2 1 | Drone 0: Vole jusqu'à la commande 0 et **Deliver** 1 produit de type 2
-1 L 1 2 1| Drone 1: Vole jusqu'à l'entrepôt 1 et **Load** 1 produit de type 2
-1 D 2 2 1 | Drone 1: Vole jusqu'à la commande 2 et **Deliver** 1 produit de type 2
-1 L 0 0 1| Drone 1: Vole jusqu'à l'entrepôt 0 et **Load** 1 produit de type 0
-1 D 1 0 1| Drone 1: Vole jusqu'à la commande 1 et **Deliver** 1 produit de type 0
+
+| Fichier   | Interprétation                                                         |
+|-----------|------------------------------------------------------------------------|
+| 9         | Il y a 9 commandes au total                                            |
+| 0 L 0 0 1 | Drone 0: **Load** 1 produit de type 0 à partir de l'entrepôt 0         |
+| 0 L 0 1 1 | Drone 0: **Load** 1 produit de type 1 à partir de l'entrepôt 0         |
+| 0 D 0 0 1 | Drone 0: Vole jusqu'à la commande 0 et **Deliver** 1 produit de type 0 |
+| 0 L 1 2 1 | Drone 0: Vole jusqu'à l'entrepôt 1 et **Load** 1 produit de type 2     |
+| 0 D 0 2 1 | Drone 0: Vole jusqu'à la commande 0 et **Deliver** 1 produit de type 2 |
+| 1 L 1 2 1 | Drone 1: Vole jusqu'à l'entrepôt 1 et **Load** 1 produit de type 2     |
+| 1 D 2 2 1 | Drone 1: Vole jusqu'à la commande 2 et **Deliver** 1 produit de type 2 |
+| 1 L 0 0 1 | Drone 1: Vole jusqu'à l'entrepôt 0 et **Load** 1 produit de type 0     |
+| 1 D 1 0 1 | Drone 1: Vole jusqu'à la commande 1 et **Deliver** 1 produit de type 0 |
 
 ## Pointage
 
@@ -202,3 +200,36 @@ Par exemple, pour une simulation durant 160 tours, si une commande a été compl
 **Le pointage attribué à un défi sera la somme de toutes les commandes complétés.**
 
 **À noter qu'il y aura plusieurs défis différents, représentant plusieurs facettes du problème. Le pointage final sera la somme des meilleurs pointages de chaque défi.**
+
+## Inscription et Soumission
+
+Méthode simple :
+- _Inscription_: Exécuter le script `register.py` et répondre aux questions adéquatement. Un token unique vous sera renvoyé par le serveur. Il est important de ne pas perdre le token puisque celui sera utilisé pour identifier votre équipe lors de la soumission des réponses.
+- _Soumission_: Exécuter le script `send_solution.py`. Il faut donner votre token unique d'équipe, le challenge d'équipe et le fichier contenant la solution sous forme de string.
+
+Méthode compliquée :
+
+Si vous voulez implémenter votre propre système, il est possible de communiquer directement avec le serveur à l'aide d'une requête TCP. Pour ce faire, il faut envoyer des données en format JSON en suivant cette structure:
+
+```
+		Inscription
+		{
+		  	method: "register",
+		  team_name: "nom de l'équipe",
+		  participants: ["part1", "part2", "part3", "part4"]
+		}
+        
+Soumission
+{
+		  	method: "challenge",
+		  	team_id: "identifiant d'équipe",
+		  chall_id: "identifiant de challenge",
+		  solution: "solution en string ici"
+		}
+```
+
+### Identifiants de challenge
+
+- 0 : *busy_day.in* 
+- 1 : _mother_of_all_warehouses.in_
+- 2 : _redundancy.in_
