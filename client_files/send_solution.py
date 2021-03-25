@@ -1,7 +1,7 @@
 import json
 import socket
 
-address = ('34.234.223.110', 1337)
+address = ('3.222.189.180', 1337)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 print(f'Connecting to {address}')
