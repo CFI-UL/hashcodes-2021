@@ -4,6 +4,7 @@ import teams
 
 from exceptions import TeamAlreadyExistsException
 from validator import Validator
+from datetime import time as datetime
 
 class Handler (socketserver.StreamRequestHandler):
 	maps = [ 'maps/busy_day.in', 'maps/mother_of_all_warehouses.in', 'maps/redundancy.in' ]
@@ -34,6 +35,7 @@ class Handler (socketserver.StreamRequestHandler):
 		m = self.rfile.readline()
 
 		if not m:
+			self.send_message('Please, for the love of god, don\'t send empty requests.')
 			return
 
 		try:
@@ -52,13 +54,20 @@ class Handler (socketserver.StreamRequestHandler):
 				raise
 		elif method == 'challenge':
 			t = self.identify(data['team_id'])
-			if t is None: return
+			if t is None:
+				self.send_message(f'Could not identify team with id {data["team_id"]}')
+				return
+
+			if not t.verify_delay():
+				self.send_message('Please wait at least 30 seconds between requests.')
+				return
 
 			try:
 				challenge = self.maps[int(data['chall_id'])]
 			except:
 				chall = data['chall_id']
 				self.send_message(f'Unknown challenge: {chall}')
+				return
 
 			with open(challenge, 'r') as f:
 				chall_data = f.read().splitlines()
@@ -69,6 +78,7 @@ class Handler (socketserver.StreamRequestHandler):
 				score = v.verify(chall_data, data['solution'].splitlines())
 				self.send_message(f'Success! Your score is: {score}')
 				t.score[challenge] = max(score, t.score['challenge'])
+				t.update_last_validation()
 			except Exception as e:
 				self.send_message(str(e))
 
