@@ -28,7 +28,9 @@ class Team:
 		return delay > 30
 
 	def update_last_validation(self):
-		self.last_validation = datetime.now()
+		new_time = datetime.now()
+		print(f'Delay when updating is: {new_time - self.last_validation}')
+		self.last_validation = new_time
 
 def from_json(data):
 	score = {i:int(data['score'][i]) for i in data['score']}

@@ -81,7 +81,6 @@ class Handler (socketserver.StreamRequestHandler):
 				t.update_last_validation()
 			except Exception as e:
 				self.send_message(str(e))
-
 		else:
 			self.send_message(f'Unknown method: {method}')
 
