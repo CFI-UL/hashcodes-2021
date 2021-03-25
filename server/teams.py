@@ -23,7 +23,9 @@ class Team:
 		return sum(self.score.values())
 
 	def verify_delay(self):
-		return (datetime.now() - self.last_validation).total_seconds() > 30
+		delay = (datetime.now() - self.last_validation).total_seconds()
+		print(f'Delay is: {delay}')
+		return delay > 30
 
 	def update_last_validation(self):
 		self.last_validation = datetime.now()
@@ -31,7 +33,6 @@ class Team:
 def from_json(data):
 	score = {i:int(data['score'][i]) for i in data['score']}
 	return Team(data['name'], data['participants'], data['id'], score)
-
 
 if __name__ == '__main__':
 	print(sum({'0':6, '1':6, '2':6}.values()))
