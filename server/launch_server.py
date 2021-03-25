@@ -5,6 +5,13 @@ import json
 import exceptions
 import os
 
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
+
 def dump_teams_as_json(teams):
 	return [teams[team_id].to_dict() for team_id in teams]
 
@@ -23,7 +30,7 @@ def read_teams():
 def dump_teams(teams):
 	data = dump_teams_as_json(teams)
 	with open('teams.cfi', 'w') as f:
-			f.write(json.dumps(data))
+			f.write(json.dumps(data, default=json_serial))
 
 class HashcodeTCPServer(socketserver.TCPServer):
 	def __init__(self, server_address, RequestHandlerClass, bind_and_activate=True):
