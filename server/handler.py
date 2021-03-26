@@ -77,10 +77,9 @@ class Handler (socketserver.StreamRequestHandler):
 			try:
 				score = v.verify(chall_data, data['solution'].splitlines())
 				self.send_message(f'Success! Your score is: {score}')
-				t.score[challenge] = max(score, t.score['challenge'])
+				t.score['challenge'] = max(score, t.score['challenge'])
 				t.update_last_validation()
 			except Exception as e:
-				print(e)
 				self.send_message(str(e))
 		else:
 			self.send_message(f'Unknown method: {method}')
