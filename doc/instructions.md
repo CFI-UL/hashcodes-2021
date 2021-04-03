@@ -176,7 +176,7 @@ Voici un exemple du contenu d'un fichier de sortie ainsi que son interprétation
 
 | Fichier   | Interprétation                                                         |
 |-----------|------------------------------------------------------------------------|
-| 9         | Il y a 9 commandes au total                                            |
+| 9         | Il y a 9 ordres au total                                            |
 | 0 L 0 0 1 | Drone 0: **Load** 1 produit de type 0 à partir de l'entrepôt 0         |
 | 0 L 0 1 1 | Drone 0: **Load** 1 produit de type 1 à partir de l'entrepôt 0         |
 | 0 D 0 0 1 | Drone 0: Vole jusqu'à la commande 0 et **Deliver** 1 produit de type 0 |
