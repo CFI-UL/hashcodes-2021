@@ -77,6 +77,7 @@ class Handler (socketserver.StreamRequestHandler):
 			try:
 				score = v.verify(chall_data, data['solution'].splitlines())
 				self.send_message(f'Success! Your score is: {score}')
+				print(f'Team {t.name} scored {score} on challenge {challenge}')
 				t.score[data['chall_id']] = max(score, t.score[data['chall_id']])
 				t.update_last_validation()
 				self.server.save_teams()
