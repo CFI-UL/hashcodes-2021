@@ -43,8 +43,6 @@ class HashcodeTCPServer(socketserver.TCPServer):
 		t = read_teams()
 
 		if team.id in t:
-			print(t)
-			print(team.id)
 			raise exceptions.TeamAlreadyExistsException()
 		
 		t[team.id] = team

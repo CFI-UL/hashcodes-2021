@@ -6,8 +6,12 @@ def random_id():
 	return binascii.b2a_hex(os.urandom(16)).decode()
 
 class Team:
-	def __init__(self, name, participants, team_id=random_id(), score={'0':0, '1':0, '2':0}):
-		self.id = team_id
+	def __init__(self, name, participants, team_id=None, score={'0':0, '1':0, '2':0}):
+		if team_id is None:
+			self.id = random_id()
+		else:
+			self.id = team_id	
+
 		self.name = name
 		self.participants = participants
 		self.score = score
