@@ -90,12 +90,14 @@ class Handler (socketserver.StreamRequestHandler):
 	def register(self, data):
 		team = teams.Team(data['team_name'], data['participants'])
 
-		try:
-			self.server.register_team(team)
-			mess = f'Successfully registered team "{team.name}". Unique identifier: {team.id}'
-			self.send_message(mess)
-		except TeamAlreadyExistsException:
-			print('Trying again...')
+		while True:
+			try:
+				self.server.register_team(team)
+				mess = f'Successfully registered team "{team.name}". Unique identifier: {team.id}'
+				self.send_message(mess)
+				break
+			except TeamAlreadyExistsException:
+				print('Trying again...')
 
 	def identify(self, identifier):
 		try:
