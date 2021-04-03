@@ -50,6 +50,9 @@ class HashcodeTCPServer(socketserver.TCPServer):
 		self.teams = t
 		dump_teams(t)
 
+	def save_teams(self):
+		dump_teams(self.teams)
+
 	def get_team(self, team_id):
 		return self.teams[team_id]
 

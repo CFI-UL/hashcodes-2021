@@ -79,6 +79,8 @@ class Handler (socketserver.StreamRequestHandler):
 				self.send_message(f'Success! Your score is: {score}')
 				t.score[data['chall_id']] = max(score, t.score[data['chall_id']])
 				t.update_last_validation()
+				self.server.save_teams()
+				
 			except Exception as e:
 				self.send_message(str(e))
 				raise e
